@@ -1,0 +1,27 @@
+3a) 161 *.mop files    // find ./ -mindepth 1 -maxdepth 1 -type f -name "*.mop" -printf x | wc -c
+
+3b) ERE: 69    // grep -irE "ere :|ere:" --include \*.mop ./
+    CFG: 0
+    FSM: 13
+    LTL: 5
+    SRS: 0
+    SUM: 87
+
+3c) SUM != *.mop file count
+    
+    Inspecting specs manually:
+        - All thread/process specs have ERE to raise violation on bad traces using regex
+        - No relation of formal properties with the creation event
+        - No relation of formal properties with number of events
+        - All specs using FSM are parameterized
+        - All specs using LTL are parameterized
+        - Not all specs using ERE are parameterized (StrictMath_ContendedRandom, ShutdownHook_LateRegister,
+          URL_SetURLStreamHandlerFactory), but the non-parametrized ones are thread/process based
+          (except URL_SetURLStreamHandlerFactory).
+
+    Reason for SUM != *.mop file count
+    The specs don't always require using a formal property. The formal properties are used when the spawned monitor or the spec has to collect information for a series of events and then run it against a property.
+
+    Taking an example of the `EnumMap_NonNull` spec - a violation is raised as soon as a null value is inserted, or is found in an EnumMap's key. No monitor is required to listen to events. The violation is simply raised if a particular event occurs.
+
+    On the other hand, for instance, in thread-based specs, a monitor has to consider a series of events to conclude if the spec is violated. For example, the Collections_SynchronizedCollection (CSC in the paper) spec creates a monitor to constantly listen to the events. A violation is raised if the order of events matches a particular regex.

@@ -1,0 +1,44 @@
+1. URL: https://github.com/yegor256/qulice
+   SHA: e0ecf0732fa5d670f009f6fce95cab691346c840
+
+Note: In order to run JavaMOP on Qulice, one will need to swap the JUnit 5.x dependency with JUnit 4.11.
+
+Why Qulice?
+I selected Qulice as -
+1. It worked on Java 8 and with JUnit 4.11.
+2. All the tests passed with and without JavaMOP (after trying out a few JUnit versions).
+3. I have experimented with numerous static analysis tools in Python, but I have never tried or looked for one written in Java. Almost all of my personal Python projects have a pre-commit configuration attached to them which fails the CI if the code is not up to standards. I have also added static analysis tools to the Open Source projects that I maintain, for instance, PyBaMM. Qulice caught my attention and met all the requirements. I also thought that it would be fun to run an RV library on a static analysis library, both of which aim to find poorly written code and bugs. It would also be fun to run Qulice on JavaMOP in the future!
+
+2.  Yes
+2a. 127.412s / 11.964s = 10.6496
+
+3.                      Unique      Total
+qulice-maven-plugin     5           15
+qulice-pmd              36          3846
+
+========
+Appendix
+========
+
+I tried a lot of projects with JavaMOP and JUnit 4.x. Several projects failed to compile, but some compiled and worked well with JavaMOP. I debugged all the projects listed below, including changing dependency versions, JDK version, JUnit version, etc. 
+
+Note: I did not write down the SHA of each project, but all the projects use an SHA where Java 8 is supported (extracted through their documentation, CHANGELOG, and release notes).
+
+A list of the projects that I tried:
+
+    Project                                                       Inspection comments (debugged all of them)
+1.  https://github.com/phax/ph-jaxb-plugin                        Worked. Did not compile on adding javamop.
+2.  https://github.com/manorrock/persian/                         Did not work on Java 8.
+3.  https://github.com/ShaftHQ/SHAFT_ENGINE                       Did not work on Java 8.
+5.  https://github.com/eclipse/jkube                              CI failing on GitHub.
+6.  https://github.com/fabric8io/fabric8-maven-plugin             CI failing on GitHub.
+7.  https://github.com/ORCID/ORCID-Source                         Did not work on Java 8.
+8.  https://github.com/CryptoMorin/XSeries                        Did not work on Java 8.
+9.  https://github.com/yegor256/qulice                            Worked well. Selected.
+10. https://github.com/qoomon/maven-git-versioning-extension      Uses JUnit 5, no tests run with 4.x. Failure with JavaMOP and JUnit 5.x.
+11. https://github.com/Alovoa/alovoa                              Did not work on Java 8.
+12. https://github.com/jimbethancourt/RefactorFirst               Some tests passed, most of them failed with NullPointerException. No violations from passed tests.
+13. https://github.com/mojo-executor/mojo-executor                Worked well. No violations.
+14. https://github.com/jcgay/maven-color                          Worked well. No violations.
+15. https://github.com/Cosium/git-code-format-maven-plugin        All tests failed on adding JavaMOP.
+16. https://github.com/delthas/JavaMP3                            Worked well. No violations.

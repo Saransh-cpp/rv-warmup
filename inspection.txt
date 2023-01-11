@@ -1,0 +1,40 @@
+Commmons compress
+=================
+1.
+    a. Closeable_MeaninglessClose
+    b. This was the first violation I looked into. The violation clearly looked like a False Alarm; hence, I decided to add it here.
+    c. False Alarm
+    e. Overriden close method - public void close() throws IOException {... os.close(); ...}
+
+2.
+    a. Iterator_HasNext
+    b. The paper mentioned Iterator_HasNext being the most widely used spec in research and the one with a high FAR. I wanted to explore this further.
+    c. True Bug
+    d. Addition of hasNext() can fix the bug.
+
+3. 
+    a. Iterator_HasNext
+    b. The paper mentioned Iterator_HasNext being the most widely used spec in research and the one with a high FAR. I wanted to explore this further.
+    c. False Alarm
+    e. Size of the data structure is checked before - if (values.size() == 1) {Object viewName = values.iterator().next(); ...}
+
+Qulice
+======
+1.
+    a. Iterator_HasNext
+    b. The violation came from checkstyle, a big Java library for checking and maintaining coding standards.
+    c. False Alarm
+    e. hasNext is called as a condition in the while loop - while (fragmentsIterator.hasNext()) {String fragment = fragmentsIterator.next(); ...}
+
+2.
+    a. Closeable_MeaninglessClose
+    b. After encountering one False Alarm for the Closeable_MeaninglessClose spec, I decided to look for more violations to explore the FAR further.
+    c. False Alarm
+    e. Overriden close method - public void close() throws IOException {... this.input.close(); ...}
+
+
+3.
+    a. Closeable_MeaninglessClose
+    b. After encountering two False Alarms for the Closeable_MeaninglessClose spec, I decided to look for more violations to explore the FAR further.
+    c. False Alarm
+    e. Overriden close method - public void close() throws IOException {... this.output.close(); ...}

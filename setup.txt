@@ -1,13 +1,13 @@
-3a) 161 *.mop files    // find ./ -mindepth 1 -maxdepth 1 -type f -name "*.mop" -printf x | wc -c
+3a. 161 *.mop files    // find ./ -mindepth 1 -maxdepth 1 -type f -name "*.mop" -printf x | wc -c
 
-3b) ERE: 69    // grep -irE "ere :|ere:" --include \*.mop ./
+3b. ERE: 69    // grep -irE "ere :|ere:" --include \*.mop ./
     CFG: 0
     FSM: 13
     LTL: 5
     SRS: 0
     SUM: 87
 
-3c) SUM != *.mop file count
+3c. SUM != *.mop file count
     
     Inspecting specs manually:
         - All thread/process specs have ERE to raise violation on bad traces using regex
